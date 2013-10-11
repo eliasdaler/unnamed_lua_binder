@@ -15,12 +15,14 @@ class LuaScript {
 public:
     LuaScript(const std::string& filename);
     ~LuaScript();
-    void close();
-    std::vector<short int> getShortIntVector(const std::string& name);
-    std::vector<std::string> getTableKeys(const std::string& name);
+    void printError(const std::string& variableName, const std::string& reason);
 
     template<typename T>
     T get(const std::string& variableName) {
+      if(!L) {
+        printError(variableName, "Script is not loaded");
+        return lua_getdefault<T>();
+      }
       int level = 0;
       std::string var = "";
       for(unsigned int i = 0; i < variableName.size(); i++) {
@@ -30,8 +32,14 @@ public:
           } else {
             lua_getfield(L, -1, var.c_str());
           }
-          var = "";
-          level++;
+          
+          if(lua_isnil(L, -1)) {
+            printError(variableName, var + " is not defined");
+            return lua_getdefault<T>();
+          } else {
+            var = "";
+            level++;
+          }
         } else {
           var += variableName.at(i);
         }
@@ -39,7 +47,11 @@ public:
       if(level == 0) {
         lua_getglobal(L, var.c_str());
       } else {
-          lua_getfield(L, -1, var.c_str());
+        lua_getfield(L, -1, var.c_str());
+      }
+      if(lua_isnil(L, -1)) {
+          printError(variableName, var + " is not defined");
+          return lua_getdefault<T>();
       }
 
       T result = lua_get<T>(variableName);
@@ -50,6 +62,11 @@ public:
     // Generic get
     template<typename T>
     T lua_get(const std::string& variableName) {
+      return 0;
+    }
+
+    template<typename T>
+    T lua_getdefault() {
       return 0;
     }
    
@@ -68,7 +85,7 @@ inline bool LuaScript::lua_get<bool>(const std::string& variableName) {
 template <> 
 inline float LuaScript::lua_get<float>(const std::string& variableName) {
     if(!lua_isnumber(L, -1)) {
-      std::cout<<"Error: not a number ("<<variableName<<")"<<std::endl;
+      printError(variableName, "Not a number");
     }
     return (float)lua_tonumber(L, -1);
 }
@@ -76,19 +93,25 @@ inline float LuaScript::lua_get<float>(const std::string& variableName) {
 template <>
 inline int LuaScript::lua_get<int>(const std::string& variableName) {
     if(!lua_isnumber(L, -1)) {
-      std::cout<<"Error: not a number ("<<variableName<<")"<<std::endl;
+      printError(variableName, "Not a number");
     }
     return (int)lua_tonumber(L, -1);
 }
 
 template <>
-inline std::string LuaScript::lua_get<std::string>(const std::string&    variableName) {
+inline std::string LuaScript::lua_get<std::string>(const std::string& variableName) {
     std::string s = "null";
     if(lua_isstring(L, -1)) {
       s = std::string(lua_tostring(L, -1));
     } else {
-      std::cout<<"Error: can't parse string ("<<variableName<<")."<<std::endl;
+      printError(variableName, "Not a string");
     }
     return s;
 }
+
+template<>
+inline std::string LuaScript::lua_getdefault<std::string>() {
+  return "null";
+}
+
 #endif
