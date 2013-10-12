@@ -6,6 +6,9 @@ Simple lua binding with C++ I'm currently using for my game.
 Tutorial
 http://eliasdaler.wordpress.com/2013/10/11/lua_cpp_binder/
 
+Russian version of tutorial
+http://habrahabr.ru/post/197300/
+
 Copyright (C) 1995-2013 Elias Daler
 
   This software is provided 'as-is', without any express or implied
