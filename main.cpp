@@ -4,7 +4,7 @@
 #include "LuaScript.h" 
 
 int main() {
-    LuaScript script("Playerdas.lua");
+    LuaScript script("Player.lua");
     float posX = script.get<float>("player.position.x");
     float posY = script.get<float>("player.position.y");
     std::string filename = script.get<std::string>("player.filename");
