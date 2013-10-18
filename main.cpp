@@ -13,4 +13,13 @@ int main() {
     std::cout<<"Position X = "<<posX<<", Y = "<<posY<<std::endl;
     std::cout<<"Filename:"<<filename<<std::endl;
     std::cout<<"HP:"<<hp<<std::endl;
+
+    std::vector<int> v = script.getIntVector("array");
+    std::cout<<"Contents of array:";
+    for(std::vector<int>::iterator it = v.begin();
+    	it != v.end();
+    	it++) {
+    	std::cout<<*it<<",";
+    }
+    std::cout<<std::endl;
 }

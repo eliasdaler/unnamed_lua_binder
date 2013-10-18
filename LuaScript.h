@@ -16,6 +16,12 @@ public:
     LuaScript(const std::string& filename);
     ~LuaScript();
     void printError(const std::string& variableName, const std::string& reason);
+    std::vector<int> LuaScript::getIntVector(const std::string& name);
+
+    inline void clean() {
+      int n = lua_gettop(L);
+      lua_pop(L, n);
+    }
 
     template<typename T>
     T get(const std::string& variableName) {
@@ -31,7 +37,8 @@ public:
         result = lua_getdefault<T>();
       }
 
-      lua_pop(L, level + 1); // pop all existing elements from stack 
+     
+      clean();
       return result;
     }
 

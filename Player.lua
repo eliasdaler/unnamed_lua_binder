@@ -5,3 +5,5 @@ player = {
     filename = "sprite.png",
     HP = 300
 }
+
+array = {1, 1,2, 3, 5, 10, 20}

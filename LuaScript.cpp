@@ -15,3 +15,18 @@ LuaScript::~LuaScript() {
 void LuaScript::printError(const std::string& variableName, const std::string& reason) {
 	std::cout<<"Error: can't get ["<<variableName<<"]. "<<reason<<std::endl;
 }
+
+std::vector<int> LuaScript::getIntVector(const std::string& name) {
+    std::vector<int> v;
+    lua_getglobal(L, name.c_str());
+    if(lua_isnil(L, -1)) { // array is not found
+        return std::vector<int>();
+    }
+    lua_pushnil(L);
+    while(lua_next(L, -2)) {
+        v.push_back((int)lua_tonumber(L, -1));
+        lua_pop(L, 1);
+    }
+    clean();
+    return v;
+}
