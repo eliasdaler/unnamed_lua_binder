@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "LuaScript.h" 
+#include "LuaScript.h"
 
 int main() {
     LuaScript script("Player.lua");
@@ -14,12 +14,23 @@ int main() {
     std::cout<<"Filename:"<<filename<<std::endl;
     std::cout<<"HP:"<<hp<<std::endl;
 
+    // getting arrays
     std::vector<int> v = script.getIntVector("array");
     std::cout<<"Contents of array:";
     for(std::vector<int>::iterator it = v.begin();
-    	it != v.end();
-    	it++) {
-    	std::cout<<*it<<",";
+            it != v.end();
+            it++) {
+            std::cout<<*it<<",";
+    }
+    std::cout<<std::endl;
+
+    // getting table keys:
+    std::vector<std::string> keys = script.getTableKeys("player");
+    std::cout<<"Keys of [player] table:";
+    for(std::vector<std::string>::iterator it = keys.begin();
+            it != keys.end();
+            it++) {
+            std::cout<<*it<<",";
     }
     std::cout<<std::endl;
 }

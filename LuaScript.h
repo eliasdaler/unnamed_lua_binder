@@ -17,7 +17,8 @@ public:
     ~LuaScript();
     void printError(const std::string& variableName, const std::string& reason);
     std::vector<int> LuaScript::getIntVector(const std::string& name);
-
+    std::vector<std::string> LuaScript::getTableKeys(const std::string& name);
+    
     inline void clean() {
       int n = lua_gettop(L);
       lua_pop(L, n);
