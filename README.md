@@ -3,13 +3,19 @@ unnamed_lua_binder
 
 Simple lua binding with C++ I'm currently using for my game.
 
-Tutorial
-Part1: http://eliasdaler.wordpress.com/2013/10/11/lua_cpp_binder/
-Part2: http://eliasdaler.wordpress.com/2013/10/20/lua_and_cpp_pt2/
+**Tutorial**
 
-Russian version of tutorial
-Part1: http://habrahabr.ru/post/197300/
-Part2: In progress
+**Part1**: http://eliasdaler.wordpress.com/2013/10/11/lua_cpp_binder/
+
+**Part2**: http://eliasdaler.wordpress.com/2013/10/20/lua_and_cpp_pt2/
+
+**Russian version of tutorial**
+
+**Part1**: http://habrahabr.ru/post/197300/
+
+**Part2**: In progress
+
+This code uses zlib license. 
 
 Copyright (C) 1995-2013 Elias Daler
 
