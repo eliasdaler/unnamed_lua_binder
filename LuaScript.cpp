@@ -20,7 +20,7 @@ void LuaScript::printError(const std::string& variableName, const std::string& r
 
 std::vector<int> LuaScript::getIntVector(const std::string& name) {
     std::vector<int> v;
-    lua_gettostack(L, name.c_str());
+    lua_gettostack(name.c_str());
     if(lua_isnil(L, -1)) { // array is not found
         return std::vector<int>();
     }
