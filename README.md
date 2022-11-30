@@ -1,9 +1,13 @@
 unnamed_lua_binder
 ==================
 
-Simple lua binding with C++ I'm currently using for my game.
+Simple lua binding with C++ I was using for my game.
+
+This is very old and not that good. Use [sol2](https://github.com/ThePhD/sol2) instead! It's perfect.
 
 **Tutorial**
+
+**Warning: very outdated**
 
 **Part1**: http://eliasdaler.wordpress.com/2013/10/11/lua_cpp_binder/
 
